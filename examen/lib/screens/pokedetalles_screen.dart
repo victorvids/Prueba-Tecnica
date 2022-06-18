@@ -44,11 +44,11 @@ class _DetallesPokemonState extends State<DetallesPokemon> {
             final gambar1 = snapshot.data!.sprites!.frontDefault;
             return Scaffold(
               appBar: AppBar(
-                title: Text('Pokemon ' + '$name'),
+                title: Text('Pokemon $name'),
               ),
               body: Center(
                 child: Card(
-                  color: Color.fromARGB(255, 122, 192, 124),
+                  color: const Color.fromARGB(255, 122, 192, 124),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                   child: Container(
@@ -67,7 +67,7 @@ class _DetallesPokemonState extends State<DetallesPokemon> {
                           height: 150,
                         ),
                         Text(
-                          'Nombre : ' + '$name',
+                          'Nombre : $name',
                           style:
                               const TextStyle(fontSize: 18, color: Colors.blue),
                         ),
@@ -96,7 +96,7 @@ class _DetallesPokemonState extends State<DetallesPokemon> {
             // eror
             return const Scaffold(
               body: Center(
-                child: Text('Tidak ada data'),
+                child: Text('Error'),
               ),
             );
           }

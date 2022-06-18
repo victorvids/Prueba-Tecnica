@@ -10,21 +10,21 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final nombreController = TextEditingController(text: "");
-
   String nombre = '';
+
   String nom = '';
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     obtenerPreferencias();
+    //borrarPreferencias();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 121, 133, 117),
+      backgroundColor: const Color.fromARGB(255, 121, 133, 117),
       appBar: AppBar(
         title: const Text("Examen Técnico"),
         backgroundColor: Colors.red,
@@ -79,9 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> obtenerPreferencias() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
-    setState(() {
-      final String? nombre = preferences.getString("nombre");
-    });
+    nombre = preferences.getString("nombre")!;
+    setState(() {});
 
     // ignore: avoid_print
     print(nombre);

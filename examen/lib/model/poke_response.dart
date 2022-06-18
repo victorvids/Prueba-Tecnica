@@ -1,7 +1,6 @@
 // To parse this JSON data, do
 //
 //     final listPokeResponse = listPokeResponseFromMap(jsonString);
-import 'dart:convert';
 
 class ListPokeResponse {
   ListPokeResponse(

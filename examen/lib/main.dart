@@ -1,4 +1,3 @@
-import 'package:examen/provider/pokemon_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/screens.dart';
@@ -21,6 +20,7 @@ class MyApp extends StatelessWidget {
         'detalles': (BuildContext context) => const DetallesPokemon(
               url: '',
             ),
+        'seleccion': (BuildContext context) => const SelectPokemon()
       },
     );
   }
