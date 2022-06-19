@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
         'detalles': (BuildContext context) => const DetallesPokemon(
               url: '',
             ),
-        'seleccion': (BuildContext context) => const SelectPokemon()
+        'seleccion': (BuildContext context) => const SelectPokemon(),
+        'equipo': (BuildContext context) => const EquipoScreen(),
       },
     );
   }

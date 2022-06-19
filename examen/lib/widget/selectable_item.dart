@@ -82,14 +82,12 @@ class _SelectableItemState extends State<SelectableItem>
     return AnimatedBuilder(
       animation: _scaleAnimation,
       builder: (context, child) {
-        return Container(
-          child: Transform.scale(
-            scale: _scaleAnimation.value,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(2),
-                color: calculateColor(),
-              ),
+        return Transform.scale(
+          scale: _scaleAnimation.value,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2),
+              color: calculateColor(),
             ),
           ),
         );

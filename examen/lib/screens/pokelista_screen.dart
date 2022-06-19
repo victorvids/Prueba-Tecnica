@@ -38,7 +38,7 @@ class _PokemonListState extends State<PokemonList> {
               );
             } else {
               return const Center(
-                child: Text('Tidak ada data'),
+                child: Text('Error'),
               );
             }
           }
@@ -46,7 +46,7 @@ class _PokemonListState extends State<PokemonList> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
-        child: const Icon(Icons.plus_one),
+        child: const Icon(Icons.add),
         onPressed: () {
           Navigator.pushNamed(context, 'seleccion');
         },

@@ -1,8 +1,7 @@
 import 'package:examen/model/pokelist_response.dart';
 import 'package:examen/provider/pokemon_provider.dart';
-import 'package:examen/widget/selectable_item.dart';
 import 'package:flutter/material.dart';
-import 'package:drag_select_grid_view/drag_select_grid_view.dart';
+import 'package:selectable_container/selectable_container.dart';
 
 class SelectPokemon extends StatefulWidget {
   const SelectPokemon({Key? key}) : super(key: key);
@@ -12,11 +11,10 @@ class SelectPokemon extends StatefulWidget {
 }
 
 class _SelectPokemonState extends State<SelectPokemon> {
-  final controller = DragSelectGridViewController();
+  final List<bool> _selectedItems = [];
 
   @override
   void dispose() {
-    controller.removeListener(scheduleRebuild);
     super.dispose();
   }
 
@@ -26,7 +24,9 @@ class _SelectPokemonState extends State<SelectPokemon> {
   void initState() {
     super.initState();
     pokemon = PokemonProvider().pokemonIndice();
-    controller.addListener(scheduleRebuild);
+    for (var i = 0; i < 149; i++) {
+      _selectedItems.add(false);
+    }
   }
 
   @override
@@ -49,17 +49,10 @@ class _SelectPokemonState extends State<SelectPokemon> {
               );
             } else {
               return const Center(
-                child: Text('Tidak ada data'),
+                child: Text('error'),
               );
             }
           }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
-        child: const Icon(Icons.plus_one),
-        onPressed: () {
-          Navigator.pushNamed(context, 'detalles');
         },
       ),
     );
@@ -67,24 +60,60 @@ class _SelectPokemonState extends State<SelectPokemon> {
 
   Widget selectPokemon(BuildContext context, data) {
     return MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        removeBottom: true,
-        child: DragSelectGridView(
-          gridController: controller,
-          padding: const EdgeInsets.all(8),
-          itemCount: 150,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2),
-          itemBuilder: (context, index, selected) {
-            return SelectableItem(
-              index: index,
-              color: Colors.blue,
-              selected: selected,
-            );
-          },
-        ));
+      context: context,
+      removeTop: true,
+      removeBottom: true,
+      child: GridView.count(
+        crossAxisCount: 2,
+        children: _builElements(),
+      ),
+    );
+  }
+
+  List<Widget> _builElements() {
+    List<Widget> dev = [];
+    for (var i = 1; i < 149; i++) {
+      dev.add(SelectableContainer(
+        selected: _selectedItems[i],
+        unselectedIcon: Icons.check_box_outline_blank,
+        iconAlignment: Alignment.topRight,
+        iconSize: 24,
+        iconColor: Colors.deepOrange[400]!,
+        onValueChanged: (_) {
+          _valueSelected(i);
+        },
+        child: Card(
+          color: Colors.green,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+          child: SizedBox(
+            height: 200,
+            width: 200,
+            child: FadeInImage(
+              placeholder: const AssetImage('assets/jar-loading.gif'),
+              image: NetworkImage(
+                  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png'),
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ),
+      ));
+    }
+    return dev;
   }
 
   void scheduleRebuild() => setState(() {});
+  List equipo = [];
+
+  void _valueSelected(int index) {
+    setState(() {
+      _selectedItems[index] = !_selectedItems[index];
+      equipo.add(index);
+      if (equipo.length == 6) {
+        setState(() {
+          Navigator.pushNamed(context, 'equipo', arguments: {'equipo': equipo});
+        });
+      }
+    });
+  }
 }

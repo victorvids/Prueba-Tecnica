@@ -17,8 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    obtenerPreferencias();
-    //borrarPreferencias();
+    //obtenerPreferencias();
+    borrarPreferencias();
   }
 
   @override
@@ -80,12 +80,12 @@ class _HomeScreenState extends State<HomeScreen> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     nombre = preferences.getString("nombre")!;
-    setState(() {});
-
     // ignore: avoid_print
     print(nombre);
     if (nombre != '') {
-      Navigator.pushNamed(context, 'pokelista');
+      setState(() {
+        Navigator.pushNamed(context, 'pokelista');
+      });
     }
   }
 
@@ -95,7 +95,9 @@ class _HomeScreenState extends State<HomeScreen> {
     print(nombre);
     await preferences.setString("nombre", nombre);
     if (nombre != '') {
-      Navigator.pushNamed(context, 'pokelista');
+      setState(() {
+        Navigator.pushNamed(context, 'pokelista');
+      });
     }
   }
 

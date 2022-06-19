@@ -22,7 +22,7 @@ class _DetallesPokemonState extends State<DetallesPokemon> {
   Widget build(BuildContext context) {
     final indice = ModalRoute.of(context)?.settings.arguments ?? 0;
     final int index = int.parse(indice.toString()) + 1;
-    final Uri uri = Uri.parse('https://pokeapi.co/api/v2/pokemon/${index}');
+    final Uri uri = Uri.parse('https://pokeapi.co/api/v2/pokemon/$index');
     pokemon = PokemonProvider().pokemonDetalles(uri);
 
     return FutureBuilder<ListPokeResponse>(
